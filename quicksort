@@ -1,0 +1,47 @@
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int partition( vector <int> &a, int s, int e)
+{
+    int pivot= a[e];
+    int i=s-1;
+   // int j=s;
+    for(int j=s; j<e; j++)
+    {
+        if(a[j]<pivot)   //10,5,2,0,7,6,4; 2,5,10,0,7,6,4; 2,0,10,5,7,6,4; 
+        {
+            i++;
+            swap(a[i],a[j]);
+        }
+    }
+    swap(a[i+1],a[e]);
+    return i+1;
+}
+
+void quicksort(vector <int> &a, int s, int e)
+{
+    // base condtion= no element
+    if(s>=e)
+        return;
+    // recursive condition, calling quicksort again for left and right partition
+    int p= partition(a,s,e);
+    quicksort(a,s,p-1);
+    quicksort(a,p+1,e);
+}
+
+int main()
+{
+    vector <int> array = {10,5,2,0,7,6,4};
+    int size= array.size();  //sizeof(array)/sizeof(int);
+    cout<<"size fo array is :"<<size<<endl;
+
+    quicksort(array,0,size-1);
+    cout<<"sorted array :\n";
+    for(int i=0; i<size; i++)
+    cout<<array[i]<<",";
+
+    return 0;
+}
